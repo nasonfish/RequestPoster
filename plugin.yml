@@ -2,3 +2,4 @@ name: RequestPoster
 version: 0.1
 main: com.nasonfish.requestposter.RequestPoster
 author: nasonfish
+softdepend: [ReportRTS]
