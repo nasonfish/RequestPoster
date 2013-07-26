@@ -1,3 +1,5 @@
+**Warning: It is not advised to use plugins from sites other than dev.bukkit.org, as they are not approved by BukkitDev staff and could harm your Minecraft server or the server it runs on. Be careful when installing plugins like this. I have decided at this time to keep my plugin off of dev.bukkit.org.**
+
 RequestPoster
 =============
 
@@ -18,7 +20,7 @@ if($_SERVER['REMOTE_ADDR'] == "xxx.xxx.xxx.xxx" || $_SERVER['REMOTE_ADDR'] == "x
 USER nickname nickname nickname :nickname
 PASS user:pass
 PRIVMSG #channelname :$text
-QUIT :Farewell!' | netcat localhost 8080"); // I unstalled netcat, which is like telnet, but it accepts data from stdin.
+QUIT :Farewell!' | netcat localhost 8080"); // I installed netcat (<http://netcat.sourceforge.net/>), which is like telnet, but it accepts data from stdin.
 } else {
     print "I think you're in the wrong place, sorry.";
 }
