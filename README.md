@@ -9,7 +9,7 @@ You can use this data for whatever purpose suits you, though a downside is that 
 
 I use this plugin to notify users on IRC when a new mod request is created:
 
-```
+```php
 <?php
 if($_SERVER['REMOTE_ADDR'] == "xxx.xxx.xxx.xxx" || $_SERVER['REMOTE_ADDR'] == "xxx.xxx.xxx.xxx"){ // Check if it's an IP I want to allow.
     $text = sprintf("(ID #%s) A new MODREQ was submitted by %s: '%s'", $_POST['id'], $_POST['name'], $_POST['message']);
@@ -46,6 +46,7 @@ What data is posted?
 
 We post all of the data we recieve from the event sent by ReportRTS. You can see all of the parameters here: https://github.com/nasonfish/RequestPoster/blob/master/src/com/nasonfish/requestposter/RequestTask.java#L89
 
+```yaml
 id: The id of the mod request. Integer
 message: The message the user specified, encoded for POSTing - /modreq <message>. Example: Hello+world%21+I%27m+a+fish.
 modid, modname, modtimestamp: All 0/null, since the mod request has not been claimed yet.
@@ -56,3 +57,4 @@ timestamp: When the request was created. Java's `System.currentTimeMillis() / 10
 world: World name.
 x, y, z: Coordinates. Integers.
 yaw: Like pitch, the direction the user is facing, but on the up/down axis.
+```
