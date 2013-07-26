@@ -95,11 +95,12 @@ public class RequestTask extends BukkitRunnable {
         data += "&pitch=" + URLEncoder.encode(request.getPitch()+"", "utf-8");
         data += "&status=" + URLEncoder.encode(request.getStatus()+"", "utf-8");
         data += "&timestamp=" + URLEncoder.encode(request.getTimestamp()+"", "utf-8");
-        data += "&world" +URLEncoder.encode( request.getWorld()+"", "utf-8");
+        data += "&world=" +URLEncoder.encode( request.getWorld()+"", "utf-8");
         data += "&x=" + URLEncoder.encode(request.getX()+"", "utf-8");
         data += "&y=" + URLEncoder.encode(request.getY()+"", "utf-8");
-        data += "&yaw" + URLEncoder.encode(request.getYaw()+"", "utf-8");
+        data += "&yaw=" + URLEncoder.encode(request.getYaw()+"", "utf-8");
         data += "&z=" + URLEncoder.encode(request.getZ()+"", "utf-8");
+        plugin.getLogger().info(data);
         } catch(Exception e){
             plugin.getLogger().severe("Unable to send POST data - Could not encode the data correctly. ("+e.getMessage()+")");
             return "";
