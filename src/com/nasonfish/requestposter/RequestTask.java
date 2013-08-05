@@ -1,13 +1,10 @@
 package com.nasonfish.requestposter;
 
 import com.google.common.io.Files;
-import com.nyancraft.reportrts.ReportCreateEvent;
 import com.nyancraft.reportrts.data.HelpRequest;
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -24,23 +21,28 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class RequestTask extends BukkitRunnable {
 
-    ReportCreateEvent event;
+    HelpRequest data;
     File config;
     RequestPoster plugin;
+    String triggerer;
     
-    public RequestTask(RequestPoster plugin, ReportCreateEvent event, File config){
-        this.event = event;
+    public RequestTask(RequestPoster plugin, HelpRequest data, String triggerer, File config){
+        this.data = data;
         this.config = config;
         this.plugin = plugin;
+        if(triggerer.equals("")){
+            this.triggerer = data.getModName();
+        } else {
+            this.triggerer = triggerer;
+        }
     }
     
     @Override
     public void run() {
-        HelpRequest request = event.getRequest();
         for(String line : this.getAddresses()){
             if(line.startsWith("#")) continue;
             plugin.getLogger().info("Posting to URL '" + line + "'...");
-            if(this.connect(line, this.getPostData(request))){
+            if(this.connect(line, this.getPostData(data))){
                 //plugin.getLogger().info("Debug - Successfully posted to " + line + ". :-)");
             }
         }
@@ -65,7 +67,7 @@ public class RequestTask extends BukkitRunnable {
             wr.writeBytes(params);
             wr.flush();
             wr.close();
-            connection.getContent();
+            connection.getContent(); // test
             connection.disconnect();
         } catch (Exception e){
             plugin.getLogger().severe("Error posting to address " + urlString + ". Error: " + e.getMessage());
@@ -100,7 +102,10 @@ public class RequestTask extends BukkitRunnable {
         data += "&y=" + URLEncoder.encode(request.getY()+"", "utf-8");
         data += "&yaw=" + URLEncoder.encode(request.getYaw()+"", "utf-8");
         data += "&z=" + URLEncoder.encode(request.getZ()+"", "utf-8");
-        plugin.getLogger().info(data);
+        
+        data += "&triggerer=" + URLEncoder.encode(triggerer, "utf-8");
+        
+        //plugin.getLogger().info(data);
         } catch(Exception e){
             plugin.getLogger().severe("Unable to send POST data - Could not encode the data correctly. ("+e.getMessage()+")");
             return "";
